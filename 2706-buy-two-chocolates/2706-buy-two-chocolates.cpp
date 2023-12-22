@@ -1,18 +1,20 @@
 class Solution {
 public:
     int buyChoco(vector<int>& prices, int money) {
-        int minp=200;
+        int m1=200;
+        int m2=200;
         for(int i=0;i<prices.size();i++){
-            for(int j=i+1;j<prices.size();j++){
-                minp=min(minp,prices[i]+prices[j]);
+            if(m1<prices[i] && m2<prices[i]){
+                continue;
+            }
+            else if(m1>prices[i]){
+                m2=m1;
+                m1=prices[i];
+            }
+            else if(m2>prices[i]){
+                m2=prices[i];
             }
         }
-        int rem=money-minp;
-        if(rem>=0){
-            return rem;
-        }
-        else{
-            return money;
-        }
+        return ((money-(m1+m2))>=0)?(money-(m1+m2)):(money);
     }
 };
